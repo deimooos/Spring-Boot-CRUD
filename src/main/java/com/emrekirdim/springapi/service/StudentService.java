@@ -1,7 +1,7 @@
 package com.emrekirdim.springapi.service;
 
-import com.emrekirdim.springapi.model.Lecture;
-import com.emrekirdim.springapi.model.Student;
+import com.emrekirdim.springapi.model.LectureTable;
+import com.emrekirdim.springapi.model.StudentTable;
 import com.emrekirdim.springapi.repository.LectureRepository;
 import com.emrekirdim.springapi.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,10 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final LectureRepository lectureRepository;
 
-    public Student createStudent(Student student, List<Long> lectureIds) {
-        Set<Lecture> lectures = new HashSet<>();
+    public StudentTable createStudent(StudentTable student, List<Long> lectureIds) {
+        Set<LectureTable> lectures = new HashSet<>();
         for (Long id : lectureIds) {
-            Lecture lecture = lectureRepository.findById(id)
+            LectureTable lecture = lectureRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Lecture not found with id: " + id));
             lectures.add(lecture);
         }
@@ -30,20 +30,20 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public List<Student> getAllStudents() {
+    public List<StudentTable> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    public Student updateStudent(Long id, Student studentDetails, List<Long> lectureIds) {
-        Student student = studentRepository.findById(id)
+    public StudentTable updateStudent(Long id, StudentTable studentDetails, List<Long> lectureIds) {
+        StudentTable student = studentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
 
         student.setName(studentDetails.getName());
         student.setRow(studentDetails.getRow());
 
-        Set<Lecture> lectures = new HashSet<>();
+        Set<LectureTable> lectures = new HashSet<>();
         for (Long lectureId : lectureIds) {
-            Lecture lecture = lectureRepository.findById(lectureId)
+            LectureTable lecture = lectureRepository.findById(lectureId)
                     .orElseThrow(() -> new RuntimeException("Lecture not found with id: " + lectureId));
             lectures.add(lecture);
         }

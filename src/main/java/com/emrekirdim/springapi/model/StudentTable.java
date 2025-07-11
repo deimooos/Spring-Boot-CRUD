@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class StudentTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,6 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "lecture_id", referencedColumnName = "id")
     )
-    private Set<Lecture> lectures = new HashSet<>();
+    private Set<LectureTable> lectures = new HashSet<>();
 }
 

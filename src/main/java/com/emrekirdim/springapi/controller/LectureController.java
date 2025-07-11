@@ -1,6 +1,6 @@
 package com.emrekirdim.springapi.controller;
 
-import com.emrekirdim.springapi.model.Lecture;
+import com.emrekirdim.springapi.model.LectureTable;
 import com.emrekirdim.springapi.service.LectureService;
 import lombok.RequiredArgsConstructor;
 import lombok.Getter;
@@ -17,17 +17,17 @@ public class LectureController {
     private final LectureService lectureService;
 
     @PostMapping("/create")
-    public Lecture create(@RequestBody Lecture lecture) {
+    public LectureTable create(@RequestBody LectureTable lecture) {
         return lectureService.create(lecture);
     }
 
     @GetMapping("/all")
-    public List<Lecture> getAll() {
+    public List<LectureTable> getAll() {
         return lectureService.getAll();
     }
 
     @PutMapping("/update")
-    public Lecture update(@RequestBody LectureDTO lectureDTO) {
+    public LectureTable update(@RequestBody LectureDTO lectureDTO) {
         return lectureService.update(lectureDTO.getId(), lectureDTO.getLecture());
     }
 
@@ -40,7 +40,7 @@ public class LectureController {
     @Setter
     public static class LectureDTO {
         private Long id;
-        private Lecture lecture;
+        private LectureTable lecture;
     }
 
     @Getter

@@ -1,6 +1,6 @@
 package com.emrekirdim.springapi.controller;
 
-import com.emrekirdim.springapi.model.Student;
+import com.emrekirdim.springapi.model.StudentTable;
 import com.emrekirdim.springapi.service.StudentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +17,17 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping("/create")
-    public Student createStudent(@RequestBody StudentDTO studentDTO) {
+    public StudentTable createStudent(@RequestBody StudentDTO studentDTO) {
         return studentService.createStudent(studentDTO.getStudent(), studentDTO.getLectureIds());
     }
 
     @GetMapping("/all")
-    public List<Student> getAllStudents() {
+    public List<StudentTable> getAllStudents() {
         return studentService.getAllStudents();
     }
 
     @PutMapping("/update")
-    public Student updateStudent(@RequestBody UpdateStudentWithLecturesDTO updateDTO) {
+    public StudentTable updateStudent(@RequestBody UpdateStudentWithLecturesDTO updateDTO) {
         return studentService.updateStudent(updateDTO.getId(), updateDTO.getStudent(), updateDTO.getLectureIds());
     }
 
@@ -39,7 +39,7 @@ public class StudentController {
     @Getter
     @Setter
     public static class StudentDTO {
-        private Student student;
+        private StudentTable student;
         private List<Long> lectureIds;
     }
 
@@ -47,7 +47,7 @@ public class StudentController {
     @Setter
     public static class UpdateStudentWithLecturesDTO {
         private Long id;
-        private Student student;
+        private StudentTable student;
         private List<Long> lectureIds;
     }
 

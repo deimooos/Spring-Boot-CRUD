@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+public class LectureTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +23,5 @@ public class Lecture {
 
     @ManyToMany(mappedBy = "lectures")
     @JsonIgnore
-    private Set<Student> students = new HashSet<>();
+    private Set<StudentTable> students = new HashSet<>();
 }

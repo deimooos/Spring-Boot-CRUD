@@ -1,6 +1,6 @@
 package com.emrekirdim.springapi.service;
 
-import com.emrekirdim.springapi.model.Lecture;
+import com.emrekirdim.springapi.model.LectureTable;
 import com.emrekirdim.springapi.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,16 @@ public class LectureService {
 
     private final LectureRepository lectureRepository;
 
-    public Lecture create(Lecture lecture) {
+    public LectureTable create(LectureTable lecture) {
         return lectureRepository.save(lecture);
     }
 
-    public List<Lecture> getAll() {
+    public List<LectureTable> getAll() {
         return lectureRepository.findAll();
     }
 
-    public Lecture update(Long id, Lecture lectureDetails) {
-        Lecture lecture = lectureRepository.findById(id)
+    public LectureTable update(Long id, LectureTable lectureDetails) {
+        LectureTable lecture = lectureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
         lecture.setName(lectureDetails.getName());
