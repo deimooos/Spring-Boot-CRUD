@@ -1,41 +1,59 @@
 package com.emrekirdim.springapi.controller;
 
-import com.emrekirdim.springapi.StudentLectureTable;
+import com.emrekirdim.springapi.model.Student;
 import com.emrekirdim.springapi.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/student")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
-    @GetMapping
-    public List<StudentLectureTable> getAll(){
-        return studentService.getAll();
+    @PostMapping("/create")
+    public Student createStudent(@RequestBody StudentDTO studentDTO) {
+        return studentService.createStudent(studentDTO.getStudent(), studentDTO.getLectureIds());
     }
 
-    @GetMapping("/{id}")
-    public StudentLectureTable getById(@PathVariable Long id){
-        return studentService.getById(id).orElse(null);
+    @GetMapping("/all")
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 
-    @PostMapping
-    public StudentLectureTable create(@RequestBody StudentLectureTable studentLectureTable){
-        return studentService.create(studentLectureTable);
+    @PutMapping("/update")
+    public Student updateStudent(@RequestBody UpdateStudentWithLecturesDTO updateDTO) {
+        return studentService.updateStudent(updateDTO.getId(), updateDTO.getStudent(), updateDTO.getLectureIds());
     }
 
-    @PutMapping("/{id}")
-    public StudentLectureTable update(@PathVariable Long id, @RequestBody StudentLectureTable updated){
-        return studentService.update(id, updated);
+    @DeleteMapping("/delete")
+    public void deleteStudent(@RequestBody DeleteRequest deleteRequest) {
+        studentService.deleteStudent(deleteRequest.getId());
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-        studentService.delete(id);
+    @Getter
+    @Setter
+    public static class StudentDTO {
+        private Student student;
+        private List<Long> lectureIds;
+    }
+
+    @Getter
+    @Setter
+    public static class UpdateStudentWithLecturesDTO {
+        private Long id;
+        private Student student;
+        private List<Long> lectureIds;
+    }
+
+    @Getter
+    @Setter
+    public static class DeleteRequest {
+        private Long id;
     }
 }
